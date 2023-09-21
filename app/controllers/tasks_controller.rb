@@ -2,7 +2,11 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:destroy]
 
   def index
-    @tasks = Task.all
+    tasks_with_deadline = Task.where.not(finish_date: nil).order(finish_date: :asc)
+    tasks_without_deadline = Task.where(finish_date: nil).order(created_at: :asc)
+    @tasks = tasks_with_deadline + tasks_without_deadline
+    #@tasks = Task.order(finish_date: :asc)
+    @task_number = 1
   end
 
   def new
@@ -31,6 +35,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:description)
+    params.require(:task).permit(:title, :description, :finish_date)
   end
 end

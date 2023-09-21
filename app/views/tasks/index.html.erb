@@ -20,19 +20,22 @@
                   <th scope="col">No.</th>
                   <th scope="col">Todo item</th>
                   <th scope="col">Description</th>
+                  <th scope="col">Deadline</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <% @tasks.each do |task| %>
                   <tr>
-                    <th scope="row">[Here should be No.]</th>
+                    <th scope="row"><%= @task_number %></th>
                     <td><%= task.title %></td>
                     <td><%= task.description %></td>
+                    <td><%= task.finish_date %></td>
                     <td>
                       <%= button_to "Delete task", task, method: :delete, class: "btn btn-danger" %>
                     </td>
                   </tr>
+                  <% @task_number += 1 %>
                 <% end %>
               </tbody>
             </table>
