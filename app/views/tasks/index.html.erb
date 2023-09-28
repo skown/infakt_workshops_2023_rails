@@ -25,17 +25,16 @@
                 </tr>
               </thead>
               <tbody>
-                <% @tasks.each do |task| %>
-                  <tr>
-                    <th scope="row"><%= @task_number %></th>
+                <% @incomplete_tasks.each_with_index do |task, index| %>
+                  <tr class="<%= 'table-danger' if task.finish_date.present? && task.finish_date < Date.today %>">
+                    <th scope="row"><%= index + 1 %></th>
                     <td><%= task.title %></td>
                     <td><%= task.description %></td>
                     <td><%= task.finish_date %></td>
                     <td>
-                      <%= button_to "Delete task", task, method: :delete, class: "btn btn-danger" %>
+                        <%= button_to "Delete task", task, method: :delete, class: "btn btn-danger" %>
                     </td>
                   </tr>
-                  <% @task_number += 1 %>
                 <% end %>
               </tbody>
             </table>
