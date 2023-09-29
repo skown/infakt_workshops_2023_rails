@@ -33,6 +33,7 @@
                     <td><%= task.finish_date %></td>
                     <td>
                         <%= button_to "Delete task", task, method: :delete, class: "btn btn-danger" %>
+                        <%= button_to "Finish task", finish_task_path(task), method: :put, class: "btn btn-success" %>
                     </td>
                   </tr>
                 <% end %>

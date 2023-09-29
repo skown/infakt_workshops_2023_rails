@@ -32,13 +32,13 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: 'Task successfully destroyed.'
   end
 
-=begin
+begin
   def finish
     @task = Task.find(params[:id])
     @task.update(completed: true)
     redirect_to tasks_url, notice: 'Task successfully finished.'
   end 
-=end
+end
 
 private
 
