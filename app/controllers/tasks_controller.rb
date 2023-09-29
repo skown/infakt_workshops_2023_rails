@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:destroy]
 
   def index
-    tasks_with_future_deadline = Task.where("finish_date >= ?", Date.today).order(finish_date: :desc)
+    tasks_with_future_deadline = Task.where("finish_date >= ?", Date.today).order(finish_date: :asc)
     tasks_with_past_deadline = Task.where("finish_date < ?", Date.today).order(finish_date: :asc)
     #tasks_with_deadline = Task.where.not(finish_date: nil).order(finish_date: :asc)
     tasks_without_deadline = Task.where(finish_date: nil).order(created_at: :asc)
