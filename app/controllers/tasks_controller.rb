@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:destroy]
+  before_action :set_task, only: [:destroy, :finish]
 
   def index
     tasks_with_future_deadline = Task.where("finish_date >= ?", Date.today).order(finish_date: :asc)
@@ -32,13 +32,15 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: 'Task successfully destroyed.'
   end
 
-begin
   def finish
     @task = Task.find(params[:id])
-    @task.update(completed: true)
-    redirect_to tasks_url, notice: 'Task successfully finished.'
-  end 
-end
+    if @task.update(completed: true, finish_date: Date.today)
+      redirect_to tasks_url, notice: 'Task successfully finished.'
+    else
+      Rails.logger.debug @task.errors.full_messages.join("\n")
+      redirect_to tasks_url, notice: 'Failed to finish task.'
+    end
+  end
 
 private
 
